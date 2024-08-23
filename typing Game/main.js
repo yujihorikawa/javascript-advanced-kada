@@ -8,6 +8,7 @@ const untypedfield = document.getElementById('untyped');
 const typedfield = document.getElementById('typed');
 const wrap =document.getElementById('wrap');
 const start =document.getElementById('start');
+const number=document.getElementById('number');
 
 const textLists = [
   'Hello World','This is my App','How are you?',
@@ -53,7 +54,7 @@ const keyPress=e=>{
 
   score++;
   typeCount++;
-    document.getElementById('number').textContent = typeCount; 
+    number.textContent = typeCount; 
   typed +=untyped.charAt(0);
   untyped = untyped.substring(1);
   typedfield.textContent = typed;
@@ -82,13 +83,17 @@ const rankCheck=score=>{
 
 const gameOver=id=>{
   clearInterval(id);
-  const result =confirm(rankCheck(score));
 
-  if(result==true){
-    window.location.reload();
-  }
+  timeUp();
+  setTimeout(() => {
+    const result = confirm(rankCheck(score));
+
+    // OKボタンをクリックされたらリロードする
+    if(result == true) {
+        window.location.reload();
+    }
+}, 100);
 };
-
 const timer = () => {
   let time =count.textContent;
 
@@ -97,9 +102,13 @@ const timer = () => {
     count.textContent=time;
 
     if(time <=0){
+      clearInterval(id);
       gameOver(id);
     }
   },1000);
+};
+const timeUp = () => {
+  wrap.textContent = 'タイムアップ!'; // タイムアップのメッセージ表示
 };
 
 start.addEventListener('click',()=>{
