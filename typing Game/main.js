@@ -2,6 +2,7 @@
 let untyped = '';
 let typed ='';
 let score=0;
+let typeCount=0;
 
 const untypedfield = document.getElementById('untyped');
 const typedfield = document.getElementById('typed');
@@ -26,6 +27,7 @@ const textLists = [
 
 
 
+
 const createText=()=>{
   typed = '';
   typedfield.textContent=typed;
@@ -39,7 +41,7 @@ const createText=()=>{
 
 const keyPress=e=>{
 
-  if(e.key !==untyped.substring(0,1)){
+  if(e.key !==untyped.charAt(0)){
     wrap.classList.add('mistyped');
 
     setTimeout(()=>{
@@ -50,7 +52,9 @@ const keyPress=e=>{
   wrap.classList.remove('mistyped');
 
   score++;
-  typed +=untyped.substring(0,1);
+  typeCount++;
+    document.getElementById('number').textContent = typeCount; 
+  typed +=untyped.charAt(0);
   untyped = untyped.substring(1);
   typedfield.textContent = typed;
   untypedfield.textContent = untyped
